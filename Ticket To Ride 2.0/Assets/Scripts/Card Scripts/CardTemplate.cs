@@ -17,9 +17,19 @@ public class CardTemplate : MonoBehaviour
 
     public bool isSeenCard = false;
 
+    //public int clickCounter; 
+
     private void Awake()
     {
         cm = GameObject.Find("Game").GetComponent<CardManager>(); 
+    }
+
+    private void Update()
+    {
+        if (cardIndex == 8 && isSeenCard)
+        {
+            gameObject.GetComponent<Button>().interactable = cm.clickCounter < 1;
+        }
     }
 
     public void Display(Card card)
@@ -33,7 +43,13 @@ public class CardTemplate : MonoBehaviour
     {
         if (isSeenCard)
         {
-            MoveToHand(); 
+            if (cardIndex == 8)
+            {
+                cm.drawBtn.interactable = false;
+                cm.seenCards.gameObject.SetActive(false); 
+            }
+            cm.ActionClicks();
+            MoveToHand();
         }
         if (!isSeenCard)
         {
@@ -62,4 +78,6 @@ public class CardTemplate : MonoBehaviour
         }
         
     }
+
+
 }

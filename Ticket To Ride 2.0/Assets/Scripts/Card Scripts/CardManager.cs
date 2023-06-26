@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using TMPro; 
 
 public class CardManager : MonoBehaviour
 {
@@ -24,12 +25,17 @@ public class CardManager : MonoBehaviour
     public List<GameObject> SeenCards = new List<GameObject>();
     //public List<GameObject> DeckCards = new List<GameObject>(); 
     private Transform currentPlayerHand;
-    public bool isPlayerOneTurn; 
+    public bool isPlayerOneTurn;
+    public Button drawBtn;
+    public int clickCounter;
+    public int filterCounter;
+    public TMP_Text FilterTxt; 
 
 
     private void Start()
     {
         currentPlayerHand = playerOneHand;
+        isPlayerOneTurn = true;
         LoadCards();
         LoadDes();
         for (int i = 0; i < 4; i++)
@@ -150,6 +156,14 @@ public class CardManager : MonoBehaviour
 
         // Remove the selected card from the deck
         Destroy(selectedCard.gameObject);
+
+        ActionClicks();
+        //if (clickCounter == 2 )
+        //{
+        //    drawBtn.interactable = false;
+        //    seenCards.gameObject.SetActive(false); 
+        //}
+
 
         //// Switch to the next player's hand
         //if (currentPlayerHand == playerOneHand)
@@ -336,9 +350,16 @@ public class CardManager : MonoBehaviour
             playerOneHand.gameObject.SetActive(true);
             p1ScrollRect.gameObject.SetActive(true);
         }
+        clickCounter = 0;
+        drawBtn.interactable = true;
+        seenCards.gameObject.SetActive(true);
+
+        filterCounter = 7;
+        filterTrainCard();
     }
 
     public void FilterHandBlue()
+
     {
         for (int i = 0; i < HandCards.Count; i++)
         {
@@ -368,5 +389,103 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    
+    public void ActionClicks()
+    {
+        clickCounter++;
+        Debug.Log("click");
+
+        switch (clickCounter)
+        {
+            case 1:
+                // First click logic
+                Debug.Log("First click");
+                break;
+
+            case 2:
+                // Second click logic
+                Debug.Log("Second click");
+                drawBtn.interactable = false;
+                seenCards.gameObject.SetActive(false);
+                break;
+        }
+
+    }
+
+
+    public void filterTrainCard()
+    {
+        filterCounter++;
+        filterCounter = filterCounter % 9;
+
+        Debug.Log("click");
+        Transform hand;
+
+        if (isPlayerOneTurn)
+        {
+                hand = playerOneHand;
+        }
+        else
+        {
+            hand = playerTwoHand; 
+        }
+
+        foreach (Transform card in hand)
+        {
+            int cardIndex = card.GetComponent<CardTemplate>().cardIndex;
+
+            if (cardIndex == filterCounter || cardIndex == 8)
+            {
+                card.gameObject.SetActive(true); 
+            }
+            else
+            {
+                card.gameObject.SetActive(false);
+            }
+            if (filterCounter == 8)
+                card.gameObject.SetActive(true);
+        }
+
+        switch (filterCounter)
+        {
+            case 0:
+                FilterTxt.text = "Black";
+                break; 
+            case 1:
+                FilterTxt.text = "Blue";
+                break; 
+            case 2:
+                FilterTxt.text = "Green";
+                break;
+            case 3:
+                FilterTxt.text = "Orange";
+                break; 
+            case 4:
+                FilterTxt.text = "Pink";
+                break; 
+            case 5:
+                FilterTxt.text = "Red";
+                break; 
+            case 6:
+                FilterTxt.text = "White";
+                break; 
+            case 7:
+                FilterTxt.text = "Yellow";
+                break; 
+            case 8:
+                FilterTxt.text = "Filter";
+                break; 
+
+
+            default:
+                FilterTxt.text = "Filter";
+                break;
+        }
+
+    }
+
+    //public bool TrainRoutes()
+    //{
+
+    //}
+
 }
