@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
+using TMPro;
 
 public class CardManager : MonoBehaviour
 {
     public Card[] card;
-    public Destination[] des; 
+    public Destination[] des;
     public GameObject template;
     public GameObject desTemplate;
     public Transform seenCards;
     public Transform playerOneHand;
-    public Transform playerTwoHand; 
+    public Transform playerTwoHand;
     public Transform deck;
     public Transform destinationDeck;
     public Transform destinationDrawn;
@@ -29,7 +29,8 @@ public class CardManager : MonoBehaviour
     public Button drawBtn;
     public int clickCounter;
     public int filterCounter;
-    public TMP_Text FilterTxt; 
+    public TMP_Text FilterTxt;
+    private DestinationTemplate dTemplate;
 
 
     private void Start()
@@ -41,8 +42,9 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             GenerateP1();
-            GenerateP2(); 
+            GenerateP2();
         }
+        DestinationCheck(); 
     }
 
     private void Update()
@@ -63,13 +65,13 @@ public class CardManager : MonoBehaviour
         if (destinationDeck.childCount == 0)
         {
             Debug.Log("No more cards in destinations.");
-            LoadDes(); 
+            LoadDes();
             return;
         }
 
         if (destinationDrawn.childCount < 3)
         {
-            doneBtn.interactable = true; 
+            doneBtn.interactable = true;
         }
 
         HandCardFalse();
@@ -97,7 +99,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < des.Length; i++)
         {
             GameObject objD = Instantiate(desTemplate, destinationDeck);
-            DestinationTemplate dTemplate = objD.GetComponent<DestinationTemplate>();
+            dTemplate = objD.GetComponent<DestinationTemplate>();
             dTemplate.desIndex = i;
             dTemplate.DisplayDes(des[i]);
             objD.SetActive(false);
@@ -227,7 +229,7 @@ public class CardManager : MonoBehaviour
         Transform selectedCard = deck.GetChild(randomIndex);
 
         //instantiate the selected card as a seen card
-        GameObject deal2= Instantiate(template, playerTwoHand);
+        GameObject deal2 = Instantiate(template, playerTwoHand);
 
         CardTemplate seenCardTemplate = deal2.GetComponent<CardTemplate>();
         seenCardTemplate.cardIndex = selectedCard.GetComponent<CardTemplate>().cardIndex;
@@ -245,7 +247,7 @@ public class CardManager : MonoBehaviour
     public void DestinationDraw()
     {
         doneObj.SetActive(true);
-        doneBtn.interactable = false; 
+        doneBtn.interactable = false;
         if (destinationDrawn.childCount == 0)
         {
             for (int i = 0; i < 3; i++)
@@ -269,7 +271,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("You cannot draw more than 3 cards in a turn."); 
+            Debug.Log("You cannot draw more than 3 cards in a turn.");
         }
     }
 
@@ -322,7 +324,7 @@ public class CardManager : MonoBehaviour
             GameObject cardObject = SeenCards[i];
             CardTemplate cardTemplate = cardObject.GetComponent<CardTemplate>();
             int cardIndex = cardTemplate.cardIndex;
-            Debug.Log( cardIndex);
+            Debug.Log(cardIndex);
         }
     }
 
@@ -335,7 +337,7 @@ public class CardManager : MonoBehaviour
             isPlayerOneTurn = false;
             Debug.Log(currentPlayerHand);
             playerOneHand.gameObject.SetActive(false);
-            p1ScrollRect.gameObject.SetActive(false); 
+            p1ScrollRect.gameObject.SetActive(false);
             playerTwoHand.gameObject.SetActive(true);
             p2ScrollRect.gameObject.SetActive(true);
 
@@ -422,11 +424,11 @@ public class CardManager : MonoBehaviour
 
         if (isPlayerOneTurn)
         {
-                hand = playerOneHand;
+            hand = playerOneHand;
         }
         else
         {
-            hand = playerTwoHand; 
+            hand = playerTwoHand;
         }
 
         foreach (Transform card in hand)
@@ -435,7 +437,7 @@ public class CardManager : MonoBehaviour
 
             if (cardIndex == filterCounter || cardIndex == 8)
             {
-                card.gameObject.SetActive(true); 
+                card.gameObject.SetActive(true);
             }
             else
             {
@@ -449,31 +451,31 @@ public class CardManager : MonoBehaviour
         {
             case 0:
                 FilterTxt.text = "Black";
-                break; 
+                break;
             case 1:
                 FilterTxt.text = "Blue";
-                break; 
+                break;
             case 2:
                 FilterTxt.text = "Green";
                 break;
             case 3:
                 FilterTxt.text = "Orange";
-                break; 
+                break;
             case 4:
                 FilterTxt.text = "Pink";
-                break; 
+                break;
             case 5:
                 FilterTxt.text = "Red";
-                break; 
+                break;
             case 6:
                 FilterTxt.text = "White";
-                break; 
+                break;
             case 7:
                 FilterTxt.text = "Yellow";
-                break; 
+                break;
             case 8:
                 FilterTxt.text = "Filter";
-                break; 
+                break;
 
 
             default:
@@ -488,4 +490,14 @@ public class CardManager : MonoBehaviour
 
     //}
 
+    public void DestinationCheck()
+    {
+        for (int i = 0; i < des.Length; i++)
+        {
+            des[i].index = i; 
+            
+            Debug.Log(i);
+        }
+       
+    }
 }
