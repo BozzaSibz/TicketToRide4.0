@@ -8,8 +8,10 @@ public class CardManager : MonoBehaviour
 {
     public Card[] card;
     public Destination[] des; 
+
     public GameObject template;
     public GameObject desTemplate;
+
     public Transform seenCards;
     public Transform playerOneHand;
     public Transform playerTwoHand; 
@@ -18,9 +20,12 @@ public class CardManager : MonoBehaviour
     public Transform destinationDrawn;
     public Transform p1ScrollRect;
     public Transform p2ScrollRect;
+
+
     public int cardsInDeckNum;
     public GameObject doneObj;
-    public Button doneBtn;
+
+  public Button doneBtn;
     public List<GameObject> HandCards = new List<GameObject>();
     public List<GameObject> SeenCards = new List<GameObject>();
     //public List<GameObject> DeckCards = new List<GameObject>(); 
@@ -29,7 +34,12 @@ public class CardManager : MonoBehaviour
     public Button drawBtn;
     public int clickCounter;
     public int filterCounter;
-    public TMP_Text FilterTxt; 
+    public TMP_Text FilterTxt;
+    
+    private int buttonIndex;
+
+   
+
 
 
     private void Start()
@@ -335,10 +345,23 @@ public class CardManager : MonoBehaviour
             isPlayerOneTurn = false;
             Debug.Log(currentPlayerHand);
             playerOneHand.gameObject.SetActive(false);
-            p1ScrollRect.gameObject.SetActive(false); 
+            p1ScrollRect.gameObject.SetActive(false);
             playerTwoHand.gameObject.SetActive(true);
             p2ScrollRect.gameObject.SetActive(true);
+            //p1.OnButtonClick(p1.buttonIndex);
 
+            Debug.Log(currentPlayerHand);
+
+            //p1.OnButtonClick(buttonIndex);
+            //for (int i = 0; i < p1.buttons.Length; i++)
+            //{
+            //    buttonIndex = i;
+            //    p1.buttons[i].onClick.AddListener(() => p1.OnButtonClick(buttonIndex));
+            //}
+
+            //pointsText2.text = "POINTS: " + points.ToString();
+            //routesText2.text = "CLAIMED ROUTES: " + routes.ToString();
+            //trainsText2.text = "TRAINS REMAINING: " + trains.ToString();
         }
         else
         {
@@ -349,6 +372,20 @@ public class CardManager : MonoBehaviour
             p2ScrollRect.gameObject.SetActive(false);
             playerOneHand.gameObject.SetActive(true);
             p1ScrollRect.gameObject.SetActive(true);
+            Debug.Log(currentPlayerHand);
+            //p1.OnButtonClick(p1.buttonIndex);
+
+            //p1.OnButtonClick(buttonIndex);
+            //for (int i = 0; i < p1.buttons.Length; i++)
+            //{
+            //    buttonIndex = i;
+            //    p1.buttons[i].onClick.AddListener(() => p1.OnButtonClick(buttonIndex));
+            //}
+
+
+            //pointsText.text = "POINTS: " + points.ToString();
+            //routesText.text = "CLAIMED ROUTES: " + routes.ToString();
+            //trainsText.text = "TRAINS REMAINING: " + trains.ToString();
         }
         clickCounter = 0;
         drawBtn.interactable = true;
@@ -482,6 +519,8 @@ public class CardManager : MonoBehaviour
         }
 
     }
+
+
 
     //public bool TrainRoutes()
     //{
