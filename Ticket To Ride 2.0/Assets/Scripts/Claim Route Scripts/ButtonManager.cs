@@ -38,17 +38,9 @@ public class ButtonManager : MonoBehaviour
             return;
 
         Image image = buttons[buttonIndex].GetComponent<Image>();
+        Color targetColor = (currentPlayer == 1) ? Color.blue : Color.red;
 
-        if (currentPlayer == 1)
-        {
-            image.sprite = player1Images[buttonIndex % player1Images.Length].sprite;
-            image.gameObject.SetActive(true);
-        }
-        else
-        {
-            image.sprite = player2Images[buttonIndex % player2Images.Length].sprite;
-            image.gameObject.SetActive(true);
-        }
+        image.color = targetColor;
+        image.gameObject.SetActive(true);
     }
 }
-
