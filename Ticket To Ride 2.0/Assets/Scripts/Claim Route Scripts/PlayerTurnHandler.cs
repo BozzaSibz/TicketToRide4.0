@@ -81,6 +81,7 @@ public class PlayerTurnHandler : MonoBehaviour
     public void SwitchTurns()
     {
         isPlayer1Turn = !isPlayer1Turn;
+        
     }
 
 }
