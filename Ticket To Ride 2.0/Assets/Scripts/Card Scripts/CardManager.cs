@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static Destination;
 
 public class CardManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class CardManager : MonoBehaviour
             GenerateP1();
             GenerateP2();
         }
-        DestinationCheck(); 
+        //DestinationCheck(); 
     }
 
     private void Update()
@@ -490,14 +491,26 @@ public class CardManager : MonoBehaviour
 
     //}
 
-    public void DestinationCheck()
-    {
-        for (int i = 0; i < des.Length; i++)
-        {
-            des[i].index = i; 
-            
-            Debug.Log(i);
-        }
+    //public void DestinationCheck()
+    //{
+
+    //    for (int i = 0; i < des.Length; i++)
+    //    {
+    //        City1 city1 = des[i].city1;
+    //        City2 city2 = des[i].city2;
+    //        // Use the enum value as needed
+    //        Debug.Log("Enum value for object " + i + ": " + city1 + "and" + city2);
+
+    //        if (des[i].city1 == City1.Dallas && des[i].city2 == City2.NewYork)
+    //        {
+    //            if (Route1 == isActiveAndEnabled)
+    //            {
+    //                Debug.Log("Destination Card Compleated"); 
+    //            }
+    //        }
+    //    }
+
        
-    }
+
+    //}
 }
