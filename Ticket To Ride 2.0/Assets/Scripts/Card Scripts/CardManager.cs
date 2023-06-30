@@ -46,6 +46,8 @@ public class CardManager : MonoBehaviour
             GenerateP2();
         }
         //DestinationCheck(); 
+        p1ScrollRect.gameObject.SetActive(true);
+        p2ScrollRect.gameObject.SetActive(false); 
     }
 
     private void Update()
@@ -361,37 +363,6 @@ public class CardManager : MonoBehaviour
         filterTrainCard();
     }
 
-    public void FilterHandBlue()
-
-    {
-        for (int i = 0; i < HandCards.Count; i++)
-        {
-            GameObject cardObject = HandCards[i];
-            CardTemplate cardTemplate = cardObject.GetComponent<CardTemplate>();
-            int cardIndex = cardTemplate.cardIndex;
-            Debug.Log(cardIndex);
-            cardObject.SetActive(false);
-
-            if (cardIndex == 0)
-            {
-                cardObject.SetActive(true);
-            }
-        }
-    }
-
-    public void FilterHandAll()
-    {
-        for (int i = 0; i < HandCards.Count; i++)
-        {
-            GameObject cardObject = HandCards[i];
-            CardTemplate cardTemplate = cardObject.GetComponent<CardTemplate>();
-            int cardIndex = cardTemplate.cardIndex;
-            Debug.Log(cardIndex);
-
-            cardObject.SetActive(true);
-        }
-    }
-
     public void ActionClicks()
     {
         clickCounter++;
@@ -510,7 +481,7 @@ public class CardManager : MonoBehaviour
     //        }
     //    }
 
-       
+
 
     //}
 }
