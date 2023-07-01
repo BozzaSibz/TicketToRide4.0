@@ -24,6 +24,8 @@ public class CardManager : MonoBehaviour
     public Button doneBtn;
     public List<GameObject> HandCards = new List<GameObject>();
     public List<GameObject> SeenCards = new List<GameObject>();
+    public List<GameObject> P1Cards = new List<GameObject>();
+    public List<GameObject> P2Cards = new List<GameObject>();
     //public List<GameObject> DeckCards = new List<GameObject>(); 
     private Transform currentPlayerHand;
     public bool isPlayerOneTurn;
@@ -32,6 +34,7 @@ public class CardManager : MonoBehaviour
     public int filterCounter;
     public TMP_Text FilterTxt;
     private DestinationTemplate dTemplate;
+    public Button desButton; 
 
 
     private void Start()
@@ -156,7 +159,14 @@ public class CardManager : MonoBehaviour
         drawnCardTemplate.Display(selectedCard.GetComponent<CardTemplate>().card);
 
         // Add the drawn card to the handCards list
-        HandCards.Add(drawnCard);
+
+        if (currentPlayerHand = playerOneHand)
+        {
+            P1Cards.Add(drawnCard);
+        }
+        {
+            P2Cards.Add(drawnCard);
+        }
         //DeckCards.Remove(drawnCard); 
 
         // Remove the selected card from the deck
@@ -221,7 +231,7 @@ public class CardManager : MonoBehaviour
         //removes the selected card from the deck
         Destroy(selectedCard.gameObject);
 
-        HandCards.Add(deal1);
+        P1Cards.Add(deal1);
         //DeckCards.Remove(deal1); 
     }
 
@@ -243,7 +253,7 @@ public class CardManager : MonoBehaviour
 
         //playerTwoHand.gameObject.SetActive(false); 
 
-        HandCards.Add(deal2);
+        P2Cards.Add(deal2);
         //DeckCards.Remove(deal2);
     }
 
@@ -373,6 +383,7 @@ public class CardManager : MonoBehaviour
             case 1:
                 // First click logic
                 Debug.Log("First click");
+                desButton.interactable = false;
                 break;
 
             case 2:

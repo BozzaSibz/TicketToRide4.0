@@ -14,6 +14,7 @@ public class CardTemplate : MonoBehaviour
 
     public Card card;
     private CardManager cm;
+    private RouteCardManager rcm; 
 
     public bool isSeenCard = false;
 
@@ -41,6 +42,7 @@ public class CardTemplate : MonoBehaviour
 
     public void CardClick()
     {
+        
         if (isSeenCard)
         {
             if (cardIndex == 8)
@@ -53,8 +55,13 @@ public class CardTemplate : MonoBehaviour
         }
         if (!isSeenCard)
         {
-            Destroy(gameObject);
-            cm.HandCards.Remove(gameObject);
+            
+            
+                Destroy(gameObject);
+                cm.HandCards.Remove(gameObject);
+                cm.P1Cards.Remove(gameObject);
+                cm.P2Cards.Remove(gameObject);
+            
         }
     }
 
@@ -65,6 +72,7 @@ public class CardTemplate : MonoBehaviour
             Transform parent = cm.playerOneHand.transform;
             transform.SetParent(parent);
             cm.HandCards.Add(gameObject);
+            cm.P1Cards.Add(gameObject);
             cm.SeenCards.Remove(gameObject);
             //cm.DeckCards.Remove(gameObject); 
         }
@@ -73,6 +81,7 @@ public class CardTemplate : MonoBehaviour
             Transform parent = cm.playerTwoHand.transform;
             transform.SetParent(parent);
             cm.HandCards.Add(gameObject);
+            cm.P2Cards.Add(gameObject); 
             cm.SeenCards.Remove(gameObject);
             //cm.DeckCards.Remove(gameObject);
         }
